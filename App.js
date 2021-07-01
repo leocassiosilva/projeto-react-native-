@@ -1,45 +1,58 @@
-import React, {Component} from "react"
-import { View, Text, Image } from 'react-native'; 
+import { StatusBar } from 'expo-status-bar';
+import React, {Component} from "react";
+import { StyleSheet, Text, View, TextInput } from 'react-native';
+
 class App extends Component{
 
-    render(){
+  constructor(props){
+    super(props);
+    this.state = {
+      nome:''
+    };
 
-        let nome = 'Leocassio';
+    this.pegaNome = this.pegaNome.bind(this);
+  }
 
-        return(
-            <View>
-                <Text>Olá Mundo!!!!</Text>
-                <Text>Meu Quarto App!!!</Text>    
-                <Text style={{ color: 'red', fontSize: 25, margin: 15 }}>
-                    Programar é Bom demais!
-                </Text>
-
-        <Text style={{ fontSize: 50 }}> {nome} </Text>
-
-        <Jobs largura={10} altura={200} fulano="Jobs" />
-
-      </View>
-        );
+  pegaNome(texto){
+    if(texto.length > 0){
+      this.setState({nome:'Bem Vindo ' + texto});
+    }else{
+      this.setState({nome:''});
     }
+    
+  }
+
+  render(){
+    return (
+      <View style={styles.container}>
+        <TextInput style={styles.input} placeholder="Informe seu nome" underlineColorAndroid="transparent" onChangeText={this.pegaNome}>
+                    
+        </TextInput>
+        <Text style={styles.texto}>{this.state.nome}</Text>
+      </View>
+    );
+  }
 }
 
-export default App;
-
-class Jobs extends Component{
-    render(){
-        
-    
-        //fonte:'https://www.google.com/url?sa=i&url=https%3A%2F%2Fbr.depositphotos.com%2Fstock-photos%2Ffutebol.html&psig=AOvVaw0T-Ggt2XkWBELtqhAWZ99h&ust=1625080709827000&source=images&cd=vfe&ved=0CAoQjRxqFwoTCJjTscTHvfECFQAAAAAdAAAAABAN';
-
-      let img = './img.jpg'
-      return(
-        <View>
-          <Image 
-            source={{ uri: img }}
-            style={{ width: this.props.largura, height: this.props.altura }}
-        />
-        <Text> {this.props.fulano} </Text>
-       </View>
-      );
-    }
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    //backgroundColor: '#fff',
+    //alignItems: 'center',
+    //justifyContent: 'center',
+  },
+  input:{
+    height:45,
+    borderWidth:1,
+    borderColor:'#222',
+    margin:30,
+    fontSize:20,
+    padding:10
+  }, 
+  texto:{
+    textAlign:'center',
+    fontSize:25
   }
+});
+
+export default App;
